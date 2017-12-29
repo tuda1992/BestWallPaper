@@ -34,7 +34,6 @@ public class MainActivity extends BaseActivity implements yalantis.com.sidemenu.
     private List<SlideMenuItem> mListData = new ArrayList<>();
     private MainFragment mMainFragment;
     private yalantis.com.sidemenu.util.ViewAnimator mViewAnimator;
-    private int mRes = R.drawable.content_music;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
@@ -60,11 +59,8 @@ public class MainActivity extends BaseActivity implements yalantis.com.sidemenu.
     @Override
     protected void initViews() {
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
-
-        mMainFragment = MainFragment.newInstance(mRes);
-        replaceFragment(mMainFragment, Constants.MAIN_FRAGMENT);
-
         setUpActionBar();
+        goToFragment(1);
         createMenuList();
         mViewAnimator = new yalantis.com.sidemenu.util.ViewAnimator(this, mListData, mMainFragment, mDrawerLayout, this);
     }
@@ -72,19 +68,21 @@ public class MainActivity extends BaseActivity implements yalantis.com.sidemenu.
     private void createMenuList() {
         SlideMenuItem menuItem0 = new SlideMenuItem(MainFragment.CLOSE, R.drawable.icn_close);
         mListData.add(menuItem0);
-        SlideMenuItem menuItem = new SlideMenuItem(MainFragment.BUILDING, R.drawable.icn_1);
+        SlideMenuItem menuItem = new SlideMenuItem(MainFragment.CAR, R.drawable.ic_car);
         mListData.add(menuItem);
-        SlideMenuItem menuItem2 = new SlideMenuItem(MainFragment.BOOK, R.drawable.icn_2);
+        SlideMenuItem menuItem2 = new SlideMenuItem(MainFragment.MOTOR_BIKE, R.drawable.ic_motor_bike);
         mListData.add(menuItem2);
-        SlideMenuItem menuItem3 = new SlideMenuItem(MainFragment.PAINT, R.drawable.icn_3);
+        SlideMenuItem menuItem8 = new SlideMenuItem(MainFragment.FOOT_BALL, R.drawable.ic_ball);
+        mListData.add(menuItem8);
+        SlideMenuItem menuItem3 = new SlideMenuItem(MainFragment.FLOWER, R.drawable.ic_flower);
         mListData.add(menuItem3);
-        SlideMenuItem menuItem4 = new SlideMenuItem(MainFragment.CASE, R.drawable.icn_4);
+        SlideMenuItem menuItem4 = new SlideMenuItem(MainFragment.COMICS, R.drawable.ic_comics);
         mListData.add(menuItem4);
-        SlideMenuItem menuItem5 = new SlideMenuItem(MainFragment.SHOP, R.drawable.icn_5);
+        SlideMenuItem menuItem5 = new SlideMenuItem(MainFragment.WEATHER, R.drawable.ic_weather);
         mListData.add(menuItem5);
-        SlideMenuItem menuItem6 = new SlideMenuItem(MainFragment.PARTY, R.drawable.icn_6);
+        SlideMenuItem menuItem6 = new SlideMenuItem(MainFragment.DOTA, R.drawable.ic_dota);
         mListData.add(menuItem6);
-        SlideMenuItem menuItem7 = new SlideMenuItem(MainFragment.MOVIE, R.drawable.icn_7);
+        SlideMenuItem menuItem7 = new SlideMenuItem(MainFragment.LOL, R.drawable.ic_lol);
         mListData.add(menuItem7);
     }
 
@@ -150,9 +148,42 @@ public class MainActivity extends BaseActivity implements yalantis.com.sidemenu.
 
     }
 
-    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition) {
-        this.mRes = this.mRes == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
+    private void goToFragment(int position) {
+        mMainFragment = MainFragment.newInstance();
+        replaceFragment(mMainFragment, Constants.MAIN_FRAGMENT);
+        String title = "";
 
+        switch (position) {
+            case 1:
+                title = "Car WallPaper";
+                break;
+            case 2:
+                title = "MotorBike WallPaper";
+                break;
+            case 3:
+                title = "Ball WallPaper";
+                break;
+            case 4:
+                title = "Flower WallPaper";
+                break;
+            case 5:
+                title = "Comics WallPaper";
+                break;
+            case 6:
+                title = "Weather WallPaper";
+                break;
+            case 7:
+                title = "Dota2 WallPaper";
+                break;
+            case 8:
+                title = "LOL WallPaper";
+                break;
+        }
+        getSupportActionBar().setTitle(title);
+
+    }
+
+    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition, int position) {
         int finalRadius = Math.max(mLlContentFrame.getWidth(), mLlContentFrame.getHeight());
         SupportAnimator animator = ViewAnimationUtils.createCircularReveal(mLlContentFrame, 0, topPosition, 0, finalRadius);
         animator.setInterpolator(new AccelerateInterpolator());
@@ -160,18 +191,19 @@ public class MainActivity extends BaseActivity implements yalantis.com.sidemenu.
 
         mLlContentOverlay.setBackgroundDrawable(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
         animator.start();
-        MainFragment mainFragment = MainFragment.newInstance(this.mRes);
-        replaceFragment(mainFragment, Constants.MAIN_FRAGMENT);
-        return mainFragment;
+
+        goToFragment(position);
+
+        return mMainFragment;
     }
 
     @Override
-    public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+    public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position, int index) {
         switch (slideMenuItem.getName()) {
             case MainFragment.CLOSE:
                 return screenShotable;
             default:
-                return replaceFragment(screenShotable, position);
+                return replaceFragment(screenShotable, position, index);
         }
     }
 

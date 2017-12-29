@@ -60,7 +60,7 @@ public class ViewAnimator<T extends Resourceble> {
                 public void onClick(View v) {
                     int[] location = {0, 0};
                     v.getLocationOnScreen(location);
-                    switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
+                    switchItem(list.get(finalI), location[1] + v.getHeight() / 2,finalI);
                 }
             });
             ((ImageView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(list.get(i).getImageRes());
@@ -169,14 +169,14 @@ public class ViewAnimator<T extends Resourceble> {
         view.startAnimation(rotation);
     }
 
-    private void switchItem(Resourceble slideMenuItem, int topPosition) {
-        this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition);
+    private void switchItem(Resourceble slideMenuItem, int topPosition,int index) {
+        this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition,index);
         hideMenuContent();
     }
 
     public interface ViewAnimatorListener {
 
-        public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position);
+        public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position,int index);
 
         public void disableHomeButton();
 

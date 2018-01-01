@@ -7,5 +7,6 @@ package com.doanhtu.changewallpaper.constant;
 public class Constants {
 
     public static final String MAIN_FRAGMENT = "MAIN_FRAGMENT";
+    public static final String BUNDLE_INT = "BUNDLE_INT";
 
 }

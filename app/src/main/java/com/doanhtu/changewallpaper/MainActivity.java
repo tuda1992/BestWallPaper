@@ -70,9 +70,7 @@ public class MainActivity extends BaseActivity implements yalantis.com.sidemenu.
         mListData.add(menuItem0);
         SlideMenuItem menuItem = new SlideMenuItem(MainFragment.CAR, R.drawable.ic_car);
         mListData.add(menuItem);
-        SlideMenuItem menuItem2 = new SlideMenuItem(MainFragment.MOTOR_BIKE, R.drawable.ic_motor_bike);
-        mListData.add(menuItem2);
-        SlideMenuItem menuItem8 = new SlideMenuItem(MainFragment.FOOT_BALL, R.drawable.ic_ball);
+        SlideMenuItem menuItem8 = new SlideMenuItem(MainFragment.SPORT, R.drawable.ic_ball);
         mListData.add(menuItem8);
         SlideMenuItem menuItem3 = new SlideMenuItem(MainFragment.FLOWER, R.drawable.ic_flower);
         mListData.add(menuItem3);
@@ -149,7 +147,7 @@ public class MainActivity extends BaseActivity implements yalantis.com.sidemenu.
     }
 
     private void goToFragment(int position) {
-        mMainFragment = MainFragment.newInstance();
+        mMainFragment = MainFragment.newInstance(position);
         replaceFragment(mMainFragment, Constants.MAIN_FRAGMENT);
         String title = "";
 
@@ -158,29 +156,25 @@ public class MainActivity extends BaseActivity implements yalantis.com.sidemenu.
                 title = "Car WallPaper";
                 break;
             case 2:
-                title = "MotorBike WallPaper";
+                title = "Sport WallPaper";
                 break;
             case 3:
-                title = "Ball WallPaper";
-                break;
-            case 4:
                 title = "Flower WallPaper";
                 break;
-            case 5:
+            case 4:
                 title = "Comics WallPaper";
                 break;
-            case 6:
+            case 5:
                 title = "Weather WallPaper";
                 break;
-            case 7:
+            case 6:
                 title = "Dota2 WallPaper";
                 break;
-            case 8:
+            case 7:
                 title = "LOL WallPaper";
                 break;
         }
         getSupportActionBar().setTitle(title);
-
     }
 
     private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition, int position) {

@@ -2,12 +2,20 @@
 <io.codetail.widget.RevealFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:clickable="true"
+    android:background="@android:color/white"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/container_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_data"

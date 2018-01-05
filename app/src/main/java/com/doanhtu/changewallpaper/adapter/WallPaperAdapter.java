@@ -1,8 +1,8 @@
 package com.doanhtu.changewallpaper.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doanhtu.changewallpaper.R;
-import com.doanhtu.changewallpaper.model.WallPaperModel;
+import com.doanhtu.changewallpaper.model.WallPaper;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -26,18 +27,18 @@ public class WallPaperAdapter extends RecyclerView.Adapter<WallPaperAdapter.View
 
     private Context mContext;
     private ICallBackItemClick mListener;
-    private List<WallPaperModel> mListData;
+    private List<WallPaper> mListData;
 
-    public WallPaperAdapter(Context context, List<WallPaperModel> listData, ICallBackItemClick listener) {
+    public WallPaperAdapter(Context context, List<WallPaper> listData, ICallBackItemClick listener) {
         this.mContext = context;
         this.mListener = listener;
         this.mListData = listData;
     }
 
     public interface ICallBackItemClick {
-        void onItemClick(int position, WallPaperModel item);
+        void onItemClick(int position, WallPaper item);
 
-        void onItemInfo(int position, WallPaperModel item);
+        void onItemInfo(int position, WallPaper item);
     }
 
     @Override
@@ -47,12 +48,26 @@ public class WallPaperAdapter extends RecyclerView.Adapter<WallPaperAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.tv_title_wall_paper)
+        TextView mTvWallPaper;
+        @BindView(R.id.iv_wall_paper)
+        ImageView mIvWallPaper;
+
+        @OnClick(R.id.cv_data)
+        public void onClickShowPicture() {
+            Log.d("TAG", "onClickShowPicture");
+            if (mListener != null)
+                mListener.onItemClick(getAdapterPosition(), mListData.get(getAdapterPosition()));
+        }
+
         public ViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
         }
 
-        public void setData(WallPaperModel model) {
+        public void setData(WallPaper model) {
+            mTvWallPaper.setText(model.titleWallPaper);
+            Picasso.with(mContext).load(model.urlWallPaper).into(mIvWallPaper);
         }
 
     }
